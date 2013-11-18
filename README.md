@@ -1,7 +1,6 @@
 # Keymaker
 
-Keymaker is a tool to manage ssh key creation and connections.  Think knife, but without
-the chef server.  It makes key creation and exchanging trivial.
+Keymaker is a tool to manage ssh key creation and connections.  Think knife, but without the chef server.  It makes key creation and exchanging trivial.
 
 # Commands
 
@@ -12,8 +11,32 @@ the chef server.  It makes key creation and exchanging trivial.
 
 # Installation
 
+Head on over to https://github.com/pkopriv2/bashum and install the latest version of bashum. 
+
+* Install the current version.
+    
 ```
-    bashum install keymaker
+bashum install keymaker 
+```
+
+# Usage
+
+* Create the "default" key
+
+```
+km key create
+```
+
+* Exchange the key with a host
+
+```
+km host bootstrap pkopriv2@localhost
+```
+
+* Run a command
+
+```
+km login pkopriv2@localhost
 ```
 
 # Future Versions
