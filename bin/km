@@ -1,0 +1,6 @@
+#! /usr/bin/env bash
+
+require_bashum 'commander'
+require 'lib/commander/commander.sh'
+
+commander_run $@
