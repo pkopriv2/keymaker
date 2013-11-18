@@ -1,30 +1,50 @@
+export keymaker_home=${keymaker_home:-"$HOME/.keymaker"}
+export keymaker_host_home=${keymaker_host_home:-"$keymaker_home/hosts"}
 
-require 'lib/bashum/lang/fail.sh'
-require 'lib/keymaker/ssh_key.sh'
+# ensure the key repo
+[[ -d $keymaker_host_home ]] || mkdir -p $keymaker_host_home
 
-export keymaker_home=${keymaker_host_home:-"$HOME/.keymaker"}
-export keymaker_host_home=${keymaker_host_home:-$keymaker_home/.hosts}
-
-# usage: host_bootstrap <login> <key>
-host_bootstrap() {
-    if (( $# != 2 ))
+# usage: host_file_get_home <login>
+host_file_get_home() {
+    if (( $# != 1 ))
     then
-        fail 'usage: host_bootstrap <login> <key>'
+        fail 'usage: host_file_get_home <login>'
     fi
 
-    local login=$(login_normalize $1)
-
-	if ! ssh_key_exchange $login $2
-	then
-        fail "Error exchanging ssh key [$2] with host [$login]"
-	fi
-
-	if ! _file_bootstrap "$login" "$key_name" 
-	then
-		error "Unable to bootstrap local host file."
-		exit 1
-	fi
+    echo $keymaker_host_home/$1
 }
 
-host_file_home() {
+# usage: host_list
+host_list() {
+    if (( $# != 0 ))
+    then
+        fail 'usage: host_list'
+    fi
 
+	for file in $keymaker_host_home/*
+	do
+        if [[ -f $file ]]
+        then
+            echo "$(basename $file)"
+        fi
+	done
+}
+
+# usage: host_match <regexp>
+host_match() {
+    if (( $# != 1 ))
+    then
+        fail 'usage: host_match <regexp>'
+    fi
+
+    _IFS=$IFS; IFS=$'\n'
+	local list=( $(host_list) )
+	for host in "${list[@]}"
+	do
+		if expr "$host" : ".*$1" &> /dev/null
+		then
+			echo $host	
+		fi
+	done
+    IFS=$_IFS
+}

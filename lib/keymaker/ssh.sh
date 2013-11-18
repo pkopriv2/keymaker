@@ -2,8 +2,8 @@
 require 'lib/bashum/lang/fail.sh'
 require 'lib/keymaker/login.sh'
 
-export keymaker_home=${keymaker_ssh_key_home:-"$HOME/.keymaker"}
-export keymaker_ssh_key_home=${keymaker_ssh_key_home:-$keymaker_home/.keys}
+export keymaker_home=${keymaker_home:-"$HOME/.keymaker"}
+export keymaker_ssh_key_home=${keymaker_ssh_key_home:-"$keymaker_home/keys"}
 
 # ensure the key repo
 [[ -d $keymaker_ssh_key_home ]] || mkdir -p $keymaker_ssh_key_home
@@ -102,6 +102,37 @@ ssh_key_exchange() {
 EOH
 }
 
+# usage: ssh_login <login> <key>
+ssh_login() {
+    if (( $# != 2 ))
+    then
+        fail 'usage: ssh_login <login> <key>'
+    fi
+
+    local key_file=$(ssh_key_get_private_file $2)
+    if [[ ! -f $key_file ]]
+    then
+        fail "Key [$2] does not exist"
+    fi
+
+    ssh  -i $key_file $1 
+}
+
+# usage: ssh_run <login> <key> <cmd> 
+ssh_run() {
+    if (( $# != 3 ))
+    then
+        fail 'usage: ssh_run <login> <key> <cmd>'
+    fi
+
+    local key_file=$(ssh_key_get_private_file $2)
+    if [[ ! -f $key_file ]]
+    then
+        fail "Key [$2] does not exist"
+    fi
+
+    ssh -q -t -i $key_file $1 "bash -l -c \"$3\""
+}
 
 
 # Given a key name determine the keyfile and
@@ -130,7 +161,7 @@ _source_key() {
 # Get the value of a public key
 #
 # @param name The name of the key [default="default"]
-ssh_key_show() {
+ssh.show() {
 	local ssh_key_name=${1:-"default"}
 	local ssh_key_file=$rr_ssh_key_home/id_rsa.$ssh_key_name.pub
 	if [[ ! -f $ssh_key_file ]]
@@ -182,4 +213,5 @@ ssh_key_list() {
 		echo "   - $file"
 	done
 }
+
 

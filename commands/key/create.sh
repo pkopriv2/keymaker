@@ -1,6 +1,6 @@
 require 'lib/bashum/lang/fail.sh'
 require 'lib/commander/cli/console.sh'
-require 'lib/keymaker/ssh_key.sh'
+require 'lib/keymaker/ssh.sh'
 
 key_create_usage() {
     echo "km key create [<name>]"
