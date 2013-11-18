@@ -36,7 +36,7 @@ km host bootstrap pkopriv2@localhost
 * Run a command
 
 ```
-km login pkopriv2@localhost
+km run pkopriv2@localhost "ls ~"
 ```
 
 # Future Versions
