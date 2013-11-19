@@ -14,11 +14,11 @@ host_file_get_home() {
     echo $keymaker_host_home/$1
 }
 
-# usage: host_list
-host_list() {
+# usage: host_get_all
+host_get_all() {
     if (( $# != 0 ))
     then
-        fail 'usage: host_list'
+        fail 'usage: host_get_all'
     fi
 
 	for file in $keymaker_host_home/*
@@ -38,7 +38,7 @@ host_match() {
     fi
 
     _IFS=$IFS; IFS=$'\n'
-	local list=( $(host_list) )
+	local list=( $(host_get_all) )
 	for host in "${list[@]}"
 	do
 		if expr "$host" : ".*$1" &> /dev/null
