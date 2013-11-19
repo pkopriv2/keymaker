@@ -5,7 +5,7 @@ require 'lib/commander/cli/console.sh'
 require 'lib/keymaker/host.sh'
 
 host_list_usage() {
-    echo "km host list"
+    echo "keymaker host list"
 }
 
 host_list_description() {

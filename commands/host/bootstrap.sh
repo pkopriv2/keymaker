@@ -8,7 +8,7 @@ require 'lib/keymaker/login.sh'
 require 'lib/keymaker/ssh.sh'
 
 host_bootstrap_usage() {
-    echo "km host bootstrap <login> [<key>]"
+    echo "keymaker host bootstrap <login> [<key>]"
 }
 
 host_bootstrap_description() {

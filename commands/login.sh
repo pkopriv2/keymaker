@@ -8,7 +8,7 @@ require 'lib/keymaker/login.sh'
 require 'lib/keymaker/ssh.sh'
 
 login_usage() {
-    echo "km login <host>"
+    echo "keymaker login <host>"
 }
 
 login_description() {

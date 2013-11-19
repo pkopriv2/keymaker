@@ -8,7 +8,7 @@ require 'lib/keymaker/login.sh'
 require 'lib/keymaker/ssh.sh'
 
 run_usage() {
-    echo "km run <host regexp> <cmd>"
+    echo "keymaker run <host regexp> <cmd>"
 }
 
 run_description() {

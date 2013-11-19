@@ -3,7 +3,7 @@ require 'lib/commander/cli/console.sh'
 require 'lib/keymaker/ssh.sh'
 
 key_create_usage() {
-    echo "km key create [<name>]"
+    echo "keymaker key create [<name>]"
 }
 
 key_create_description() {
