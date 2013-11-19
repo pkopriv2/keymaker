@@ -6,5 +6,5 @@ file          "commands"
 
 depends       "commander" "1.0.0"
 
-snapshot_repo "https://github.com/pkopriv2/bashum-snapshot.git"
-release_repo  "https://github.com/pkopriv2/bashum-main.git"
+snapshot_repo "git@github.com:pkopriv2/bashum-snapshot.git"
+release_repo  "git@github.com:pkopriv2/bashum-main.git"
